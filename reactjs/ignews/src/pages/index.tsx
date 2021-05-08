@@ -11,6 +11,8 @@ interface HomeProps {
   };
 }
 
+const TWENTY_FOR_HOURS = 60 * 60 * 24;
+
 export default function Home({ product }: HomeProps) {
   return (
     <>
@@ -54,6 +56,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: { product },
-    revalidate: 60 * 60 * 24, // 24 hours
+    revalidate: TWENTY_FOR_HOURS,
   };
 };
