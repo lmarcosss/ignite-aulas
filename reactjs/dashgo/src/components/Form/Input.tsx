@@ -1,3 +1,4 @@
+import { forwardRef, LegacyRef } from "react";
 import {
   FormControl,
   FormLabel,
@@ -11,7 +12,8 @@ interface InputProps extends ChakraInputProps {
   label?: string;
   error: FieldError;
 }
-export function Input({ label, error, ...props }: InputProps) {
+
+function InputComponent({ label, error, ...props }: InputProps, ref: LegacyRef<HTMLInputElement>) {
   return (
     <FormControl isInvalid={!!error}>
       {label && <FormLabel htmlFor={props.name}>{label}</FormLabel>}
@@ -23,8 +25,11 @@ export function Input({ label, error, ...props }: InputProps) {
         variant="filled"
         _hover={{ bgColor: "gray.900" }}
         size="lg"
+        ref={ref}
       />
       {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>
-  );
+  )
 }
+
+export const Input = forwardRef(InputComponent);

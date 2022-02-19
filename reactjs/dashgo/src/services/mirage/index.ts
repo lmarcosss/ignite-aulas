@@ -7,8 +7,9 @@ type User = {
     created_at: string;
 }
 
-export function makeServer() {
+export function makeServer({ environment = "test" }) {
     const server = createServer({
+        environment,
         serializers: {
             application: ActiveModelSerializer,
         },
@@ -48,7 +49,9 @@ export function makeServer() {
                 const pageEnd = pageStart + Number(per_page);
 
                 const users = this.serialize(schema.all('user'))
-                    .users.slice(pageStart, pageEnd);
+                    .users
+                    .sort((a,b) => new Date(a) < new Date(b))
+                    .slice(pageStart, pageEnd);
                 
                 return new Response(
                     200,

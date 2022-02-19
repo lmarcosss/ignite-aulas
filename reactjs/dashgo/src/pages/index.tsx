@@ -3,6 +3,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Input } from "../components/Form/Input";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 
 type SignInFormData = {
   email: string;
@@ -18,15 +20,16 @@ export default function SignIn() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(SignInFormSchema),
   });
 
-  const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+  const { signIn } = useContext(AuthContext);
 
-    console.log(values);
+  const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
+    await signIn(values);
   };
 
   return (
