@@ -5,7 +5,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { useEffect } from 'react';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 
 import styles from '../post.module.scss';
 
@@ -16,12 +16,12 @@ interface Props {
     slug: string;
     title: string;
     content: string;
-    excerpt: string;
     updatedAt: string;
   };
 }
 export default function PostPreview({ post }: Props) {
   const [session] = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     if (session?.activeSubscription) {

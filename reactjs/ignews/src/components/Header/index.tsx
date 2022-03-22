@@ -15,7 +15,7 @@ export function Header() {
         <img src="/images/logo.svg" alt="ig.news" />
         <nav>
           {items.map((item) => (
-            <ActiveLink activeClassName={styles.active} href={item.href}>
+            <ActiveLink key={item.title} activeClassName={styles.active} href={item.href}>
               <a>{item.title}</a>
             </ActiveLink>
           ))}
